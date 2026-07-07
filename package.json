@@ -1,0 +1,27 @@
+{
+  "name": "webapp-express",
+  "version": "1.0.0",
+  "description": "This is a app that allows users to view and submit movie reviews.",
+  "main": "sever.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "node --watch --env-file=.env server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AndreaDistefanoDev/webapp-express.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/AndreaDistefanoDev/webapp-express/issues"
+  },
+  "homepage": "https://github.com/AndreaDistefanoDev/webapp-express#readme",
+  "dependencies": {
+    "express": "^5.2.1",
+    "mysql2": "^3.22.6"
+  }
+}

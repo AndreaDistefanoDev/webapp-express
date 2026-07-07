@@ -84,6 +84,7 @@ erDiagram
 ### Setup Server Express.js
 1. Install dependencies:
    ```bash
+   npm init -y
    npm install express mysql2
    ```
 2. Create a `.env` file in the root directory and add your database credentials:
@@ -92,4 +93,9 @@ erDiagram
     DB_USER=your_username
     DB_PASSWORD=your_password
     DB_NAME=db_movies
+    ```
+3. Create a gitignore file and add the following line to ignore the `.env` file:
+    ```
+    node_modules
+    .env
     ```
