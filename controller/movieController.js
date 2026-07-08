@@ -44,10 +44,41 @@ const show = (req, res) => {
 }
 
 
+// store movie
+const store = (req, res) => {
+    const { title, director, year } = req.body;
+    const sql = "INSERT INTO movies (title, director, year) VALUES (?, ?, ?)";
+    connection.query(sql, [title, director, year], (err, results) => {
+        if (err) {
+            console.error("Error adding movie:", err);
+            return res.status(500).json({ error: true, message: "Internal server error" });
+        }
+        res.status(201).json({ message: "Movie added successfully", movieId: results.insertId });
+    });
+};
 
-
+// store review
+const storeReview = (req, res) => {
+    const movieId = parseInt(req.params.id);
+    const { name, text, vote } = req.body;
+    const sql = "INSERT INTO reviews (movie_id, name, text, vote) VALUES (?, ?, ?, ?)";
+    connection.query(sql, [movieId, name, text, vote], (err, results) => {
+        if (err) {
+            console.error("Error adding review:", err);
+            return res.status(500).json({ error: true, message: "Internal server error" });
+        }
+        res.status(201).json({ message: "Review added successfully", reviewId: results.insertId });
+    });
+};
 
 module.exports = {
     index,
-    show
+    show,
+    store,
+    storeReview
 };
+
+
+
+
+
