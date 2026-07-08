@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const PORT = process.env.API_SERVER_PORT;
-const usersRouter = require("./routes/users");
+const moviesRouter = require("./routes/movies");
 
 
 app.use(express.static("public"));
@@ -14,5 +14,5 @@ app.get("/", (req, res) => {
     res.send("Hello, World!");
 });
 
-// users router
-app.use("/users", usersRouter);
+// movies router
+app.use("/movies", moviesRouter);
