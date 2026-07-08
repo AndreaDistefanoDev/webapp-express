@@ -8,7 +8,7 @@ const index = (req, res) => {
         if (err) {
             console.error("Error fetching movies:", err);
             return res.status(500).json({ error: true, message: "Internal server error" });
-            return;
+
         }
         res.json(results);
     });
