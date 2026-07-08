@@ -26,3 +26,9 @@ const show = (req, res) => {
         res.json(results[0]);
     });
 }
+
+
+module.exports = {
+    index,
+    show
+};

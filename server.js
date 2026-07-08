@@ -1,8 +1,11 @@
 const express = require("express");
 const app = express();
 const PORT = process.env.API_SERVER_PORT;
-const connection = require("./database/connection");
+const usersRouter = require("./routes/users");
+
+
 app.use(express.static("public"));
+
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
@@ -10,3 +13,6 @@ app.listen(PORT, () => {
 app.get("/", (req, res) => {
     res.send("Hello, World!");
 });
+
+// users router
+app.use("/users", usersRouter);
