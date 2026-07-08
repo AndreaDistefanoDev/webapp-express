@@ -15,8 +15,10 @@ const index = (req, res) => {
 }
 
 const show = (req, res) => {
-    const userId = req.params.id;
-    connection.query("SELECT * FROM movies WHERE id = ?", [userId], (err, results) => {
+    const Id = parseInt(req.params.id);
+    const sql = "SELECT * FROM movies WHERE id = ?";
+    const reviwsSql = "SELECT id, name, text, vote FROM reviews  WHERE movie_id = ?";
+    connection.query(sql, [Id], (err, results) => {
         if (err) {
             console.error("Error fetching movie:", err);
             return res.status(500).json({ error: true, message: "Internal server error" });
@@ -26,9 +28,23 @@ const show = (req, res) => {
             return res.status(404).json({ error: true, message: "Movie not found" });
 
         }
-        res.json(results[0]);
+        const movie = results[0];
+
+
+        connection.query(reviwsSql, [Id], (err, reviewsResults) => {
+            if (err) {
+                console.error("Error fetching reviews:", err);
+                return res.status(500).json({ error: true, message: "Internal server error" });
+            }
+
+            movie.reviews = reviewsResults;
+            res.json(movie);
+        });
     });
 }
+
+
+
 
 
 module.exports = {
