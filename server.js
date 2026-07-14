@@ -4,8 +4,11 @@ const PORT = process.env.API_SERVER_PORT;
 const moviesRouter = require("./routes/movies");
 const notFound = require("./middlewares/notFound");
 const serverError = require("./middlewares/serverError");
+const cors = require("cors");
 
-
+app.use(cors({
+    origin: process.env.FRONTEND_SERVER_PORT
+}));
 app.use(express.static("public"));
 
 

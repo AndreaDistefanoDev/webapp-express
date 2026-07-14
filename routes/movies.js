@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const movieController = require("../controller/movieController");
-const cors = require("cors");
 
 
 
