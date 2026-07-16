@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const movieController = require("../controller/movieController");
+const upload = require("../middlewares/ImageStorage");
 
 
 
@@ -13,7 +14,7 @@ router.get("/:id", movieController.show);
 
 
 // Post route [Store] to add a new movie to the database
-router.post("/", movieController.store);
+router.post("/", upload.single("image"), movieController.store);
 
 
 // Post route [Store Review] to add a new review to a movie in the database

@@ -46,14 +46,31 @@ const show = (req, res) => {
 
 // store movie
 const store = (req, res) => {
-    const { title, director, year } = req.body;
-    const sql = "INSERT INTO movies (title, director, year) VALUES (?, ?, ?)";
-    connection.query(sql, [title, director, year], (err, results) => {
+
+    const uploadFile = req.file;
+    if (uploadFile) {
+        console.log("File uploaded successfully");
+    } else {
+        console.log("No file uploaded");
+    }
+
+    const { title, director, release_year, genre, abstract } = req.body;
+    const image = uploadFile ? `http://${process.env.API_SERVER_HOST}:${process.env.API_SERVER_PORT}/${uploadFile.filename}` : null;
+
+    const parsedYear = parseInt(release_year, 10);
+
+    if (isNaN(parsedYear)) {
+        return res.status(400).json({ error: true, message: "Invalid release year" });
+    }
+    console.log("Request body: ", req.body);
+
+    const sql = "INSERT INTO movies (title, director, release_year, image, genre, abstract ) VALUES (?, ?, ? , ?, ?, ?)";
+    connection.query(sql, [title, director, release_year, image, genre, abstract], (err, results) => {
         if (err) {
             console.error("Error adding movie:", err);
             return res.status(500).json({ error: true, message: "Internal server error" });
         }
-        res.status(201).json({ message: "Movie added successfully", movieId: results.insertId });
+        res.status(201).json({ error: false, message: "Movie added successfully", movieId: results.insertId });
     });
 };
 
